@@ -1,16 +1,29 @@
 const convert = (infix: string): string => {
-  const operator = getOperator(infix);
-  const [firstTerm, secondTerm] = getTerms(infix, operator);
-  return `${firstTerm} ${secondTerm} ${operator}`;
+  const tokens = getTokens(infix)
+  const numbers = getNumbers(tokens);
+  const operators = getOperators(tokens);
+  return numbers.join(" ") + " " + operators.join(" ")
 };
 
-const getTerms = (infix: string, operator: string): Array<string> => {
-  return infix.split(operator).map((term) => term.trim());
-};
+const getTokens = (infix: string): Array<string> => {
+  return infix.split(" ")
+}
 
-const getOperator = (infix: string): string => {
-  const elements = infix.split(" ")
-  return elements[1]
+const getNumbers = (tokens: Array<string>): Array<string> => {
+  return tokens.filter(token => isNumber(token))
+} 
+
+const getOperators = (tokens: Array<string>): Array<string> => {
+  return tokens.filter(token => isOperator(token))
+} 
+
+const isNumber = (token: string): boolean => {
+  return !isNaN(Number(token))
+}
+
+const isOperator = (token: string): boolean => {
+  const operators = ["+", "-", "*", "/"]
+  return operators.includes(token)
 }
 
 export default convert;
