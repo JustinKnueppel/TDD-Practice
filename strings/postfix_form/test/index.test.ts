@@ -34,6 +34,6 @@ describe("Convert infix to postfix", () => {
 
   it("Given x + y + z return x y z + +", () => {
     const infix = "1 + 2 + 3"
-    expect(convert(infix)).to.equal("1 2 3 + +");
+    expect(convert(infix)).to.equal("1 2 + 3 +");
   })
 });

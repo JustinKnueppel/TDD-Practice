@@ -1,29 +1,25 @@
 const convert = (infix: string): string => {
   const tokens = getTokens(infix)
-  const numbers = getNumbers(tokens);
-  const operators = getOperators(tokens);
-  return numbers.join(" ") + " " + operators.join(" ")
+  if (tokens.length === 0) {
+    return ""
+  }
+  let postfix = ""
+  let firstTerm = tokens.shift()!;
+  while (tokens.length > 1) {
+    const operator = tokens.shift()!
+    const secondTerm = tokens.shift()!
+    postfix = formatExpression(firstTerm, secondTerm, operator)
+    firstTerm = postfix
+  }
+  return postfix
 };
+
+const formatExpression = (term1: string, term2: string, operator: string): string => {
+  return `${term1} ${term2} ${operator}`
+}
 
 const getTokens = (infix: string): Array<string> => {
   return infix.split(" ")
-}
-
-const getNumbers = (tokens: Array<string>): Array<string> => {
-  return tokens.filter(token => isNumber(token))
-} 
-
-const getOperators = (tokens: Array<string>): Array<string> => {
-  return tokens.filter(token => isOperator(token))
-} 
-
-const isNumber = (token: string): boolean => {
-  return !isNaN(Number(token))
-}
-
-const isOperator = (token: string): boolean => {
-  const operators = ["+", "-", "*", "/"]
-  return operators.includes(token)
 }
 
 export default convert;
