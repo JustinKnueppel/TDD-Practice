@@ -3,32 +3,37 @@ import convert from "../src/index";
 
 describe("Convert infix to postfix", () => {
   it("Given x + y return x y +", () => {
-    const infix = "x + y";
-    expect(convert(infix)).to.equal("x y +");
+    const infix = "1 + 2";
+    expect(convert(infix)).to.equal("1 2 +");
   });
 
   it("Given y + x return y x +", () => {
-    const infix = "y + x";
-    expect(convert(infix)).to.equal("y x +");
+    const infix = "1 + 2";
+    expect(convert(infix)).to.equal("1 2 +");
   });
 
   it("Given x * y return x y *", () => {
-    const infix = "x * y"
-    expect(convert(infix)).to.equal("x y *")
+    const infix = "1 * 2"
+    expect(convert(infix)).to.equal("1 2 *")
   })
 
   it("Given y * x return y x *", () => {
-    const infix = "y * x"
-    expect(convert(infix)).to.equal("y x *")
+    const infix = "2 * 1"
+    expect(convert(infix)).to.equal("2 1 *")
   })
 
   it("Given x / y return x y /", () => {
-    const infix = "x / y"
-    expect(convert(infix)).to.equal("x y /")
+    const infix = "1 / 2"
+    expect(convert(infix)).to.equal("1 2 /")
   })
 
   it("Given x - y return x y -", () => {
-    const infix = "x - y"
-    expect(convert(infix)).to.equal("x y -")
+    const infix = "1 - 2"
+    expect(convert(infix)).to.equal("1 2 -")
+  })
+
+  it("Given x + y + z return x y z + +", () => {
+    const infix = "1 + 2 + 3"
+    expect(convert(infix)).to.equal("1 2 3 + +");
   })
 });
