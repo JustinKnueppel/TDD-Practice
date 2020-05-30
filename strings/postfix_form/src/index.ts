@@ -1,11 +1,11 @@
 const convert = (infix: string): string => {
   const operator = getOperator(infix);
-  const [firstOperand, secondOperand] = getOperands(infix, operator);
-  return `${firstOperand} ${secondOperand} ${operator}`;
+  const [firstTerm, secondTerm] = getTerms(infix, operator);
+  return `${firstTerm} ${secondTerm} ${operator}`;
 };
 
-const getOperands = (infix: string, operator: string): Array<string> => {
-  return infix.split(operator).map((operand) => operand.trim());
+const getTerms = (infix: string, operator: string): Array<string> => {
+  return infix.split(operator).map((term) => term.trim());
 };
 
 const getOperator = (infix: string): string => {
