@@ -21,4 +21,14 @@ describe("Convert infix to postfix", () => {
     const infix = "y * x"
     expect(convert(infix)).to.equal("y x *")
   })
+
+  it("Given x / y return x y /", () => {
+    const infix = "x / y"
+    expect(convert(infix)).to.equal("x y /")
+  })
+
+  it("Given x - y return x y -", () => {
+    const infix = "x - y"
+    expect(convert(infix)).to.equal("x y -")
+  })
 });
