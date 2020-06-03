@@ -1,14 +1,37 @@
 const convert = (infix: string): string => {
-  const tokens = getTokens(infix)
+  let tokens = getTokens(infix)
   if (tokens.length === 0) {
     return ""
   }
-  let postfix = tokens.shift()!;
   while (atLeastTwoTokensRemaining(tokens)) {
-    postfix = addNextTwoTokensToPostfix(postfix, tokens);
+    if (hasMultiplication(tokens)) {
+      substituteExpression(tokens, firstMultiplicationTermIndex(tokens));
+    } else {
+      substituteExpression(tokens, 0)
+    }
   }
-  return postfix
+  return tokens[0]
 };
+
+const hasMultiplication = (tokens: Array<string>): boolean => {
+  return getMultiplicationIndex(tokens) >= 0
+}
+
+const firstMultiplicationTermIndex = (tokens: Array<string>): number => {
+  return getMultiplicationIndex(tokens) - 1;
+}
+
+const getMultiplicationIndex = (tokens: Array<string>): number => {
+  return tokens.indexOf("*")
+}
+
+const substituteExpression = (tokens: Array<string>, startIndex: number): void => {
+  const firstTerm = tokens[startIndex]
+  const operator = tokens[startIndex + 1]
+  const secondTerm = tokens[startIndex + 2]
+  const formattedExpression = formatExpression(firstTerm, secondTerm, operator);
+  tokens.splice(startIndex, 3, formattedExpression)
+}
 
 const getTokens = (infix: string): Array<string> => {
   return infix.split(" ")
@@ -16,12 +39,6 @@ const getTokens = (infix: string): Array<string> => {
 
 const atLeastTwoTokensRemaining = (tokens: Array<string>): boolean => {
   return tokens.length >= 2;
-}
-
-const addNextTwoTokensToPostfix = (postfix: string, tokens: Array<string>): string => {
-  const operator = tokens.shift()!
-  const secondTerm = tokens.shift()!
-  return formatExpression(postfix, secondTerm, operator)
 }
 
 const formatExpression = (term1: string, term2: string, operator: string): string => {
