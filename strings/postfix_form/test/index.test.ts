@@ -49,4 +49,28 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 3 / +"
     expect(convert(infix)).to.equal(postfix)
   })
+
+  it("Multiplication operates before subtraction", () => {
+    const infix = "1 - 2 * 3";
+    const postfix = "1 2 3 * -";
+    expect(convert(infix)).to.equal(postfix);
+  });
+
+  it("Division operates before subtraction", () => {
+    const infix = "1 - 2 / 3"
+    const postfix = "1 2 3 / -"
+    expect(convert(infix)).to.equal(postfix)
+  })
+
+  it("Given multiplication then division, operate in order", () => {
+    const infix = "1 * 2 / 3"
+    const postfix = "1 2 * 3 /"
+    expect(convert(infix)).to.equal(postfix)
+  })
+
+  it("Given division then multiplication, operate in order", () => {
+    const infix = "1 / 2 * 3"
+    const postfix = "1 2 / 3 *"
+    expect(convert(infix)).to.equal(postfix)
+  })
 });
