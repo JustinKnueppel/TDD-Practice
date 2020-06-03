@@ -1,14 +1,11 @@
 const convert = (infix: string): string => {
-  let tokens = getTokens(infix)
+  const tokens = getTokens(infix)
   if (tokens.length === 0) {
     return ""
   }
   while (atLeastTwoTokensRemaining(tokens)) {
-    if (hasMultiplication(tokens)) {
-      substituteExpression(tokens, firstMultiplicationTermIndex(tokens));
-    } else {
-      substituteExpression(tokens, 0)
-    }
+    const substitutionIndex = hasMultiplication(tokens) ? firstMultiplicationTermIndex(tokens) : 0
+    substituteExpression(tokens, substitutionIndex)
   }
   return tokens[0]
 };
