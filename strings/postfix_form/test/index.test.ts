@@ -2,48 +2,43 @@ import { expect } from "chai";
 import convert from "../src/index";
 
 describe("Convert infix to postfix", () => {
-  it("Given x + y return x y +", () => {
+  it("Given single addition expression, postfix the operator", () => {
     const infix = "1 + 2";
     expect(convert(infix)).to.equal("1 2 +");
   });
 
-  it("Given y + x return y x +", () => {
-    const infix = "1 + 2";
-    expect(convert(infix)).to.equal("1 2 +");
+  it("Given single addition expression, order of terms does not change", () => {
+    const infix = "2 + 1";
+    expect(convert(infix)).to.equal("2 1 +");
   });
 
-  it("Given x * y return x y *", () => {
+  it("Multiplication recognized as operator", () => {
     const infix = "1 * 2";
     expect(convert(infix)).to.equal("1 2 *");
   });
 
-  it("Given y * x return y x *", () => {
-    const infix = "2 * 1";
-    expect(convert(infix)).to.equal("2 1 *");
-  });
-
-  it("Given x / y return x y /", () => {
+  it("Division recognized as operator", () => {
     const infix = "1 / 2";
     expect(convert(infix)).to.equal("1 2 /");
   });
 
-  it("Given x - y return x y -", () => {
+  it("Subtraction recognized as operator", () => {
     const infix = "1 - 2";
     expect(convert(infix)).to.equal("1 2 -");
   });
 
-  it("Given x + y + z return x y z + +", () => {
+  it("Given two expressions of same type, postfix operators sequentially", () => {
     const infix = "1 + 2 + 3";
     expect(convert(infix)).to.equal("1 2 + 3 +");
   });
 
-  it("Given x * y + z return x y * z +", () => {
+  it("Given two expressions of different types in order of order of operations, postfix operators sequentially", () => {
     const infix = "1 * 2 + 3";
     const postfix = "1 2 * 3 +";
     expect(convert(infix)).to.equal(postfix);
   });
 
-  it("Given x + y * z return x y z * +", () => {
+  it("Multiplication operates before addition", () => {
     const infix = "1 + 2 * 3";
     const postfix = "1 2 3 * +";
     expect(convert(infix)).to.equal(postfix);
