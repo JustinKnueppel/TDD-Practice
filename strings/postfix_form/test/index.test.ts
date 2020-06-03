@@ -48,4 +48,10 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 3 * +";
     expect(convert(infix)).to.equal(postfix);
   });
+
+  it("Division operates before addition", () => {
+    const infix = "1 + 2 / 3"
+    const postfix = "1 2 3 / +"
+    expect(convert(infix)).to.equal(postfix)
+  })
 });

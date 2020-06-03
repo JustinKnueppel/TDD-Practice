@@ -4,14 +4,43 @@ const convert = (infix: string): string => {
     return ""
   }
   while (atLeastTwoTokensRemaining(tokens)) {
-    const substitutionIndex = hasMultiplication(tokens) ? firstMultiplicationTermIndex(tokens) : 0
+    const substitutionIndex = hasMultiplicationOrDivision(tokens) ? firstMultiplicationOrDivisionTermIndex(tokens) : 0
     substituteExpression(tokens, substitutionIndex)
   }
   return tokens[0]
 };
 
+const hasMultiplicationOrDivision = (tokens: Array<string>): boolean => {
+  return hasMultiplication(tokens) || hasDivision(tokens)
+}
+
 const hasMultiplication = (tokens: Array<string>): boolean => {
   return getMultiplicationIndex(tokens) >= 0
+}
+
+const hasDivision = (tokens: Array<string>): boolean => {
+  return getDivisionIndex(tokens) >= 0
+}
+
+const getDivisionIndex = (tokens: Array<string>): number => {
+  return tokens.indexOf("/")
+}
+
+const firstMultiplicationOrDivisionTermIndex = (tokens: Array<string>): number => {
+  const multiplicationIndex = firstMultiplicationTermIndex(tokens)
+  const divisionIndex = firstDivisionTermIndex(tokens)
+
+  if (multiplicationIndex < 0)
+    return divisionIndex
+
+  if (divisionIndex < 0)
+    return multiplicationIndex
+
+  return Math.min(multiplicationIndex, divisionIndex)
+}
+
+const firstDivisionTermIndex = (tokens: Array<string>): number => {
+  return getDivisionIndex(tokens) - 1
 }
 
 const firstMultiplicationTermIndex = (tokens: Array<string>): number => {
