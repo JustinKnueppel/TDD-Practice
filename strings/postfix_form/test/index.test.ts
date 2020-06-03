@@ -79,4 +79,10 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 / 3 *";
     expect(convert(infix)).to.equal(postfix);
   });
+
+  it("Given long statement, operate according to order of operations", () => {
+    const infix = "1 + 2 * 3 / 4 - 5"
+    const postfix = "1 2 3 * 4 / + 5 -"
+    expect(convert(infix)).to.equal(postfix);
+  })
 });
