@@ -81,38 +81,38 @@ describe("Convert infix to postfix", () => {
   });
 
   it("Given long statement, operate according to order of operations", () => {
-    const infix = "1 + 2 * 3 / 4 - 5"
-    const postfix = "1 2 3 * 4 / + 5 -"
+    const infix = "1 + 2 * 3 / 4 - 5";
+    const postfix = "1 2 3 * 4 / + 5 -";
     expect(convert(infix)).to.equal(postfix);
-  })
+  });
 
   it("Given single operation with parenthesis, apply postfix", () => {
-    const infix = "(1 + 2)"
-    const postfix = "1 2 +"
+    const infix = "(1 + 2)";
+    const postfix = "1 2 +";
     expect(convert(infix)).to.equal(postfix);
-  })
+  });
 
   it("Have parenthesis override order of operations", () => {
-    const infix = "1 * (2 + 3)"
-    const postfix = "1 2 3 + *"
+    const infix = "1 * (2 + 3)";
+    const postfix = "1 2 3 + *";
     expect(convert(infix)).to.equal(postfix);
-  })
+  });
 
   it("Parses nested parenthesis in order", () => {
-    const infix = "1 * (2 / (3 + 4))"
-    const postfix = "1 2 3 4 + / *"
+    const infix = "1 * (2 / (3 + 4))";
+    const postfix = "1 2 3 4 + / *";
     expect(convert(infix)).to.equal(postfix);
-  })
-  
+  });
+
   it("Parses separate blocks of parenthesis", () => {
-    const infix = "1 / (2 + 3) + 4 * (5 - 6)"
-    const postfix = "1 2 3 + / 4 5 6 - * +"
+    const infix = "1 / (2 + 3) + 4 * (5 - 6)";
+    const postfix = "1 2 3 + / 4 5 6 - * +";
     expect(convert(infix)).to.equal(postfix);
-  })
+  });
 
   it("Parses complex infix operation", () => {
-    const infix = "1 * (2 + (3 - 4) * (5 + 6 / 7))"
-    const postfix = "1 2 3 4 - 5 6 7 / + * + *"
+    const infix = "1 * (2 + (3 - 4) * (5 + 6 / 7))";
+    const postfix = "1 2 3 4 - 5 6 7 / + * + *";
     expect(convert(infix)).to.equal(postfix);
-  })
+  });
 });
