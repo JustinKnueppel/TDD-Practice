@@ -3,6 +3,18 @@ const convert = (infix: string): string => {
   if (tokens.length === 0) {
     return "";
   }
+
+  return parseBlock(tokens)
+};
+
+const parseBlock = (tokens: Array<string>): string => {
+  if (hasParentheses(tokens)) {
+    const firstParenthesisIndex = getFirstParenthesisIndex(tokens);
+    const matchingParenthesisIndex = getMatchingParenthesisIndex(tokens, firstParenthesisIndex);
+    const parenthesisExpression = parseBlock(tokens.slice(firstParenthesisIndex + 1, matchingParenthesisIndex))
+    const numberOfTokensToReplace = matchingParenthesisIndex - firstParenthesisIndex + 1;
+    tokens.splice(firstParenthesisIndex, numberOfTokensToReplace, parenthesisExpression)
+  }
   while (atLeastTwoTokensRemaining(tokens)) {
     const substitutionIndex = hasMultiplicationOrDivision(tokens)
       ? firstMultiplicationOrDivisionTermIndex(tokens)
@@ -10,7 +22,32 @@ const convert = (infix: string): string => {
     substituteExpression(tokens, substitutionIndex);
   }
   return tokens[0];
-};
+}
+
+const hasParentheses = (tokens: Array<string>): boolean => {
+  return getFirstParenthesisIndex(tokens) >= 0
+}
+
+const getFirstParenthesisIndex = (tokens: Array<string>): number => {
+  return tokens.indexOf('(')
+}
+
+const getMatchingParenthesisIndex = (tokens: Array<string>, openParenthesisIndex: number): number => {
+  let openParenthesisCount = 0;
+  let closedParenthesisCount = 0;
+  for (let i = openParenthesisIndex; i < tokens.length; i++) {
+    if (tokens[i] === '(')
+      openParenthesisCount++;
+
+    if (tokens[i] === ')')
+      closedParenthesisCount++;
+
+    if (openParenthesisCount === closedParenthesisCount)
+      return i;
+  }
+
+  return -1;
+}
 
 const hasMultiplicationOrDivision = (tokens: Array<string>): boolean => {
   return hasMultiplication(tokens) || hasDivision(tokens);
@@ -65,8 +102,38 @@ const substituteExpression = (
 };
 
 const getTokens = (infix: string): Array<string> => {
-  return infix.split(" ");
+  const tokens = infix.split(" ");
+  splitParenthesisTokens(tokens);
+  return tokens;
 };
+
+const splitParenthesisTokens = (tokens: Array<string>): void => {
+  while (hasTokenWithParenthesisAndNumber(tokens)) {
+    const index = indexOfTokenWithParenthesisAndNumber(tokens);
+    const numberAndParenthesis = splitParenthesisToken(tokens[index])
+    tokens.splice(index, 1, ...numberAndParenthesis)
+  }
+}
+
+const hasTokenWithParenthesisAndNumber = (tokens: Array<string>): boolean => {
+  return indexOfTokenWithParenthesisAndNumber(tokens) >= 0
+}
+
+const indexOfTokenWithParenthesisAndNumber = (tokens: Array<string>): number => {
+  const regex = /(\(\S)|(\S\))/
+  for (let i = 0; i < tokens.length; i++) {
+    if (regex.test(tokens[i]))
+      return i
+  }
+  return -1;
+}
+
+const splitParenthesisToken = (token: string): Array<string> => {
+  if (token.includes('('))
+    return ['(', token.substring(1)]
+  
+  return [token.substring(0, token.length - 1), ')']
+}
 
 const atLeastTwoTokensRemaining = (tokens: Array<string>): boolean => {
   return tokens.length >= 2;

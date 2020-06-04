@@ -85,4 +85,10 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 3 * 4 / + 5 -"
     expect(convert(infix)).to.equal(postfix);
   })
+
+  it("Given single operation with parenthesis, apply postfix", () => {
+    const infix = "(1 + 2)"
+    const postfix = "1 2 +"
+    expect(convert(infix)).to.equal(postfix);
+  })
 });
