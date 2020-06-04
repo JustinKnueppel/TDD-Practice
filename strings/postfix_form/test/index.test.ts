@@ -103,4 +103,10 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 3 4 + / *"
     expect(convert(infix)).to.equal(postfix);
   })
+  
+  it("Parses separate blocks of parenthesis", () => {
+    const infix = "1 / (2 + 3) + 4 * (5 - 6)"
+    const postfix = "1 2 3 + / 4 5 6 - * +"
+    expect(convert(infix)).to.equal(postfix);
+  })
 });

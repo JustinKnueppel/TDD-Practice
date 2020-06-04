@@ -8,7 +8,7 @@ const convert = (infix: string): string => {
 };
 
 const parseBlock = (tokens: Array<string>): string => {
-  if (hasParentheses(tokens)) {
+  while (hasParentheses(tokens)) {
     const firstParenthesisIndex = getFirstParenthesisIndex(tokens);
     const matchingParenthesisIndex = getMatchingParenthesisIndex(tokens, firstParenthesisIndex);
     const parenthesisExpression = parseBlock(tokens.slice(firstParenthesisIndex + 1, matchingParenthesisIndex))
