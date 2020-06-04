@@ -91,4 +91,16 @@ describe("Convert infix to postfix", () => {
     const postfix = "1 2 +"
     expect(convert(infix)).to.equal(postfix);
   })
+
+  it("Have parenthesis override order of operations", () => {
+    const infix = "1 * (2 + 3)"
+    const postfix = "1 2 3 + *"
+    expect(convert(infix)).to.equal(postfix);
+  })
+
+  it("Parses nested parenthesis in order", () => {
+    const infix = "1 * (2 / (3 + 4))"
+    const postfix = "1 2 3 4 + / *"
+    expect(convert(infix)).to.equal(postfix);
+  })
 });
