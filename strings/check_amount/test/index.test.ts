@@ -83,94 +83,102 @@ describe("Check to string", () => {
     });
   });
 
-  describe('2 Digit', () => {
+  describe("2 Digit", () => {
     it("Lower bound", () => {
       const amount = 10;
       const checkString = "Ten and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Teen", () => {
       const amount = 15;
       const checkString = "Fifteen and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Over 20 no ones", () => {
       const amount = 30;
       const checkString = "Thirty and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Over 20 with ones", () => {
       const amount = 46;
       const checkString = "Forty six and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Upper bound", () => {
       const amount = 99.99;
       const checkString = "Ninety nine and 99/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
-  })
-  
+    });
+  });
 
   describe("3 Digit", () => {
     it("Lower bound", () => {
       const amount = 100;
       const checkString = "One hundred and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("With tens place", () => {
       const amount = 120;
       const checkString = "One hundred twenty and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("With ones and tens place", () => {
       const amount = 111;
       const checkString = "One hundred eleven and 00/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("With decimal", () => {
       const amount = 100.11;
       const checkString = "One hundred and 11/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Upper bound", () => {
       const amount = 999.99;
       const checkString = "Nine hundred ninety nine and 99/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
   });
 
-  describe('n digits', () => {
+  describe("n digits", () => {
     it("4 Digit extended", () => {
       const amount = 1010.22;
       const checkString = "One thousand ten and 22/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("6 Digit extended", () => {
       const amount = 502910.33;
-      const checkString = "Five hundred two thousand nine hundred ten and 33/100 dollars";
+      const checkString =
+        "Five hundred two thousand nine hundred ten and 33/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Millions", () => {
       const amount = 1111111.11;
-      const checkString = "One million one hundred eleven thousand one hundred eleven and 11/100 dollars";
+      const checkString =
+        "One million one hundred eleven thousand one hundred eleven and 11/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
+    });
 
     it("Billions", () => {
       const amount = 2222222222.22;
-      const checkString = "Two billion two hundred twenty two million two hundred twenty two thousand two hundred twenty two and 22/100 dollars";
+      const checkString =
+        "Two billion two hundred twenty two million two hundred twenty two thousand two hundred twenty two and 22/100 dollars";
       expect(checkAmountToString(amount)).to.equal(checkString);
-    })
-  })
+    });
+
+    it("Large number with one significant digit", () => {
+      const amount = 6000000000000;
+      const checkString = "Six trillion and 00/100 dollars";
+      expect(checkAmountToString(amount)).to.equal(checkString);
+    });
+  });
 });
