@@ -41,4 +41,16 @@ describe("Right trim", () => {
     const trimmed = " Hello world!"
     expect(rightTrim(testString)).to.equal(trimmed)
   })
+
+  it("Removes right padding on each line of string", () => {
+    const testString = "  Hello world! \nFoo bar  \t";
+    const trimmed = "  Hello world!\nFoo bar"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
+
+  it("Preserves blank lines", () => {
+    const testString = "  Hello world! \n\n\nFoo bar  \t";
+    const trimmed = "  Hello world!\n\n\nFoo bar"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
 });
