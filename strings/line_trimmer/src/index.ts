@@ -1,5 +1,5 @@
 const rightTrim = (string: String): String => {
-  const trimmed = string.replace(/[ \t]/g, "");
+  const trimmed = string.replace(/[ \t]+$/, "");
   return trimmed;
 };
 

@@ -23,4 +23,22 @@ describe("Right trim", () => {
     const trimmed = "";
     expect(rightTrim(testString)).to.equal(trimmed);
   });
+
+  it("Given single word with spaces to the right return stripped string", () => {
+    const testString = "Hello ";
+    const trimmed = "Hello"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
+
+  it("Given multiple words with right padding remove only the right padding", () => {
+    const testString = "Hello world! ";
+    const trimmed = "Hello world!"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
+
+  it("Given left padded string, return the full string", () => {
+    const testString = " Hello world!";
+    const trimmed = " Hello world!"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
 });
