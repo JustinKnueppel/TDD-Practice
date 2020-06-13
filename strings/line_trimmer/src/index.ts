@@ -1,7 +1,8 @@
 const rightTrim = (string: String): String => {
-  const lines = string.split("\n");
+  const lineEnding = string.includes("\r\n") ? "\r\n" : "\n"
+  const lines = string.split(lineEnding);
   const trimmedLines = lines.map((line) => rightTrimLine(line));
-  return trimmedLines.join("\n");
+  return trimmedLines.join(lineEnding);
 };
 
 const rightTrimLine = (string: String): String => {

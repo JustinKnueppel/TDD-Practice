@@ -53,4 +53,10 @@ describe("Right trim", () => {
     const trimmed = "  Hello world!\n\n\nFoo bar"
     expect(rightTrim(testString)).to.equal(trimmed)
   })
+
+  it("Respects windows line endings", () => {
+    const testString = "  Hello world! \r\n\r\n\r\nFoo bar  \t";
+    const trimmed = "  Hello world!\r\n\r\n\r\nFoo bar"
+    expect(rightTrim(testString)).to.equal(trimmed)
+  })
 });
