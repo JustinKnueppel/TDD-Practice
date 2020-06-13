@@ -1,13 +1,16 @@
-const rightTrim = (string: String): String => {
-  const lineEnding = string.includes("\r\n") ? "\r\n" : "\n"
-  const lines = string.split(lineEnding);
+const rightTrim = (fullString: string): string => {
+  const lineEnding = getLineEnding(fullString);
+  const lines = fullString.split(lineEnding);
   const trimmedLines = lines.map((line) => rightTrimLine(line));
   return trimmedLines.join(lineEnding);
 };
 
-const rightTrimLine = (string: String): String => {
-  const trimmed = string.replace(/[ \t]+$/, "");
-  return trimmed;
+const getLineEnding = (fullString: string): string => {
+  return fullString.includes("\r\n") ? "\r\n" : "\n";
+};
+
+const rightTrimLine = (line: string): string => {
+  return line.replace(/[ \t]+$/, "");
 };
 
 export { rightTrim };
