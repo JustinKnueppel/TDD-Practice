@@ -17,4 +17,18 @@ describe("Select", () => {
     );
     expect(columnsThatDontAppear.length).to.equal(0);
   });
+
+  it("Selects single column", () => {
+    const table = "customers";
+    const columns = ["id"];
+    const sqlExpression = "SELECT id FROM customers";
+    expect(sql.select(table, columns)).to.equal(sqlExpression);
+  });
+
+  it("Selects multiple columns", () => {
+    const table = "stores";
+    const columns = ["id", "name"];
+    const sqlExpression = "SELECT id, name FROM stores";
+    expect(sql.select(table, columns)).to.equal(sqlExpression);
+  });
 });
